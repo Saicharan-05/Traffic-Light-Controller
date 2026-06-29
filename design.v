@@ -16,6 +16,13 @@ module traffic_light_controller (
   //present state and next state
   reg [2:0]current_state;
   reg [2:0]next_state;
- 
+  //state register
+  always@(posedge clk or posedge rst)begin
+    if(rst)
+    current_state <= S0;
+    else
+    current_state <= next_state; 
+    
+  end
   
 endmodule
