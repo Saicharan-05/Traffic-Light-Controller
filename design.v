@@ -7,5 +7,15 @@ module traffic_light_controller (
   output reg EW_Y,
   output reg EW_G
 );
+  localparam S0 = 2'b00,//both red
+  S1 = 3'd0, //NS green,EW red
+  S2 = 3'd1, //NS yellow,EW red
+  S3 = 3'd2,//NS red,EW green
+  S4 = 3'd3 ;//NS red,EW yellow
+
+  //present state and next state
+  reg [2:0]current_state;
+  reg [2:0]next_state;
+ 
   
 endmodule
