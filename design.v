@@ -22,7 +22,16 @@ module traffic_light_controller (
     current_state <= S0;
     else
     current_state <= next_state; 
-    
+
   end
-  
+  // next state logic
+  always@(*) begin
+    case(current_state)
+      S0 : next_state = S1;
+      S1 : next_state = S2;
+      S2 : next_state = S3;
+      S3 : next_state = S4;
+      S4 : next_state = S1;
+    endcase
+  end
 endmodule
