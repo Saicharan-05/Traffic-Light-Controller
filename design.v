@@ -16,22 +16,53 @@ module traffic_light_controller (
   //present state and next state
   reg [2:0]current_state;
   reg [2:0]next_state;
+  reg [3:0]count;
+  reg[3:0] max_count;
   //state register
   always@(posedge clk or posedge rst)begin
-    if(rst)
+    if(rst) begin
     current_state <= S0;
-    else
-    current_state <= next_state; 
-
-  end
-  // next state logic
+    count<=0;
+    end
+    else begin
+      if(count == max_count)begin
+        current_state <= next_state;
+        count<=0;
+         end
+      else begin
+        count<=count+1;
+      end
+    end
+   end
+   
+   
+  // next state logic and maxcount
   always@(*) begin
     case(current_state)
-      S0 : next_state = S1;
-      S1 : next_state = S2;
-      S2 : next_state = S3;
-      S3 : next_state = S4;
-      S4 : next_state = S1;
+      S0 : begin 
+        next_state = S1;
+        max_count=2;
+      end
+      S1 :begin 
+        next_state = S2;
+        max_count=5;
+        end
+      S2 : begin 
+        next_state = S3;
+        max_count=2;
+        end
+      S3 : begin 
+        next_state = S4;
+        max_count=5;
+        end
+      S4 : begin 
+        next_state = S1;
+        max_count=2;
+        end
+        default:begin
+          next_state=S0;
+          max_count=2;
+        end
     endcase
     //output logic
      always@(*) begin
