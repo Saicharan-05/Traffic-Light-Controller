@@ -1,27 +1,50 @@
 module traffic_light_controller (
-  input clk,input rst,
-  output reg NS_R,
-  output reg NS_Y'
-  output reg NS_G,
-  output reg EW_R,
-  output reg EW_Y,
-  output reg EW_G
+  input clk,
+  input rst,
+
+  //North
+  output reg N_R,
+  output reg N_Y'
+  output reg N_G,
+  //East
+  output reg E_R,
+  output reg E_Y,
+  output reg E_G,
+  //South
+  output reg S_R,
+  output reg S_Y'
+  output reg S_G,
+  //West
+  output reg W_R,
+  output reg W_Y,
+  output reg W_G,
+  //Paedastrians
+  output reg PED_NS,
+  output reg PED_EW
 );
-  localparam S0 = 3'd0,//both red
-  S1 = 3'd1, //NS green,EW red
-  S2 = 3'd2, //NS yellow,EW red
-  S3 = 3'd3,//NS red,EW green
-  S4 = 3'd4 ;//NS red,EW yellow
+//state declarations
+  localparam AR1 = 4'd0,//all red
+  NG = 4'd1, 
+  NY = 4'd2, 
+  AR2 = 4'd3,
+  EG = 4'd4 ,
+  EY = 4'd5,
+  AR3 = 4'd6,
+  SG = 4'd7,
+  SY = 4'd8,
+  AR4 = 4'd9,
+  WG = 4'd10,
+  WY = 4'd11;
 
   //present state and next state
-  reg [2:0]current_state;
-  reg [2:0]next_state;
+  reg [3:0]current_state;
+  reg [3:0]next_state;
   reg [3:0]count;
-  reg[3:0] max_count;
+  
   //state register
   always@(posedge clk or posedge rst)begin
     if(rst) begin
-    current_state <= S0;
+    current_state <= AR1;
     count<=0;
     end
     else begin
