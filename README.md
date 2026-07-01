@@ -38,7 +38,7 @@ Traffic-Light-Controller
 ## FSM States
 
 | State | Description |
-
+|-------|-------------|
 | AR1 | All Red |
 | NG | North Green |
 | NY | North Yellow |
@@ -73,7 +73,6 @@ Traffic-Light-Controller
 
 
 ## Tools Used
-
 - Verilog HDL
 - Icarus Verilog
 - GTKWave
